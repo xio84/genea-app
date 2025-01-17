@@ -120,11 +120,11 @@ Vue.component('new-person', {
                         M.Autocomplete.init(document.querySelector('#existingPerson'), {
                             data: (function() {
                                 var persons = stamboom.getPersons();
-                                persons = Object.fromEntries(persons.map(person => [person.caption]));
+                                persons = Object.fromEntries(persons.filter(person => person.id !== this.person.id).map(person => [person.caption]));
                                 return persons;
                             })(),
                             onAutocomplete: function(selection) {
-                                var person = stamboom.getPersons().find(person => person.caption == selection);
+                                var person = stamboom.getPersons().filter(person => person.id !== this.person.id).find(person => person.caption == selection);
                                 data.person = person;
                             }
                         });
